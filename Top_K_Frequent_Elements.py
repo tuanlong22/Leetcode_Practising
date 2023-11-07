@@ -1,16 +1,16 @@
-class Solution:
-    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        count = {}
-        freq = [[] for i in range(len(nums) + 1)]
-
-        for n in nums:
-            count[n] = 1 + count.get(n, 0)
-        for n, c in count.items():
-            freq[c].append(n)
-
-        res = []
-        for i in range(len(freq) - 1, 0, -1):
-            for n in freq[i]:
-                res.append(n)
-                if len(res) == k:
-                    return res
+class Solution(object):
+    def topKFrequent(self, nums, k):
+        n = len(nums)
+        freq_count = defaultdict(int)
+        
+        # Count the frequency of each number
+        for num in nums:
+            freq_count[num] += 1
+        
+        # Sort the numbers by their frequencies in descending order
+        sorted_freq = sorted(freq_count.keys(), key=lambda x: freq_count[x], reverse=True)
+        
+        # Get the top K frequent elements
+        result = sorted_freq[:k]
+        
+        return result
